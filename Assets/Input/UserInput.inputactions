@@ -1,0 +1,184 @@
+{
+    "name": "UserInput",
+    "maps": [
+        {
+            "name": "Global",
+            "id": "798d5d87-5f1b-45b7-8303-46fcd8b9b893",
+            "actions": [
+                {
+                    "name": "ToggleMode",
+                    "type": "Value",
+                    "id": "54dc541d-4b08-4b96-b89c-140de8a4badb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0ecc5261-8de2-4c04-9922-21a45bfafc0c",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Lighting",
+            "id": "2cf2a144-f3f2-4775-b85e-ce415bb5c4c2",
+            "actions": [
+                {
+                    "name": "DragLight",
+                    "type": "Value",
+                    "id": "5961368a-45ee-4ab7-96ea-5e8cc8860027",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "ClickAndDrag",
+                    "id": "ae7c0ef9-78e5-42e3-93f3-aa416a9adda1",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DragLight",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Modifier",
+                    "id": "3543834b-7aa6-471d-bdc0-88fdf9be2b7a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DragLight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Binding",
+                    "id": "148d1b10-54c4-48a0-be23-e6b7b92f25b0",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DragLight",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "Paintbrush",
+            "id": "8d9ce206-1f9e-422a-840d-d3f91db888f2",
+            "actions": [
+                {
+                    "name": "Paint",
+                    "type": "Value",
+                    "id": "5fa2571e-1c74-4a19-bef9-6bccfb2b575b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "ClickAndDrag",
+                    "id": "aa555a8a-5abb-46c7-a3c4-ba8a8ecbbebd",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Paint",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Modifier",
+                    "id": "3d66f0bb-ca7b-4b33-8ef1-976f7c81050b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Paint",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Binding",
+                    "id": "60edf940-c1f6-44ae-8e02-f976ae7090a2",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Paint",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "Camera",
+            "id": "a3a32a94-0c24-45dd-9349-c47183c310bf",
+            "actions": [
+                {
+                    "name": "Orbit",
+                    "type": "Value",
+                    "id": "c48feff0-c0a5-444c-9c3d-8bf491f71ccf",
+                    "expectedControlType": "Delta",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "ClickAndDrag",
+                    "id": "9e545fab-239c-46dc-9990-90d56ee66812",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Orbit",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Modifier",
+                    "id": "cad28a1b-0455-4e94-a544-69b94f5d35f0",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Orbit",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Binding",
+                    "id": "415dac60-0f16-413d-9e42-daefdf6ae49a",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Orbit",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

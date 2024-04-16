@@ -165,6 +165,15 @@ namespace MickolPaige
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""OrbitFinished"",
+                    ""type"": ""Button"",
+                    ""id"": ""ca0b1181-bbbc-40f8-ae09-68d690ac46f8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -200,6 +209,17 @@ namespace MickolPaige
                     ""action"": ""Orbit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c680bed-5d0d-4d3b-8540-a79d7e1c6255"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OrbitFinished"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -218,6 +238,7 @@ namespace MickolPaige
             // Camera
             m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
             m_Camera_Orbit = m_Camera.FindAction("Orbit", throwIfNotFound: true);
+            m_Camera_OrbitFinished = m_Camera.FindAction("OrbitFinished", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -418,11 +439,13 @@ namespace MickolPaige
         private readonly InputActionMap m_Camera;
         private List<ICameraActions> m_CameraActionsCallbackInterfaces = new List<ICameraActions>();
         private readonly InputAction m_Camera_Orbit;
+        private readonly InputAction m_Camera_OrbitFinished;
         public struct CameraActions
         {
             private @UserInput m_Wrapper;
             public CameraActions(@UserInput wrapper) { m_Wrapper = wrapper; }
             public InputAction @Orbit => m_Wrapper.m_Camera_Orbit;
+            public InputAction @OrbitFinished => m_Wrapper.m_Camera_OrbitFinished;
             public InputActionMap Get() { return m_Wrapper.m_Camera; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -435,6 +458,9 @@ namespace MickolPaige
                 @Orbit.started += instance.OnOrbit;
                 @Orbit.performed += instance.OnOrbit;
                 @Orbit.canceled += instance.OnOrbit;
+                @OrbitFinished.started += instance.OnOrbitFinished;
+                @OrbitFinished.performed += instance.OnOrbitFinished;
+                @OrbitFinished.canceled += instance.OnOrbitFinished;
             }
 
             private void UnregisterCallbacks(ICameraActions instance)
@@ -442,6 +468,9 @@ namespace MickolPaige
                 @Orbit.started -= instance.OnOrbit;
                 @Orbit.performed -= instance.OnOrbit;
                 @Orbit.canceled -= instance.OnOrbit;
+                @OrbitFinished.started -= instance.OnOrbitFinished;
+                @OrbitFinished.performed -= instance.OnOrbitFinished;
+                @OrbitFinished.canceled -= instance.OnOrbitFinished;
             }
 
             public void RemoveCallbacks(ICameraActions instance)
@@ -474,6 +503,7 @@ namespace MickolPaige
         public interface ICameraActions
         {
             void OnOrbit(InputAction.CallbackContext context);
+            void OnOrbitFinished(InputAction.CallbackContext context);
         }
     }
 }

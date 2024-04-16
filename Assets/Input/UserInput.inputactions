@@ -141,6 +141,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "OrbitFinished",
+                    "type": "Button",
+                    "id": "ca0b1181-bbbc-40f8-ae09-68d690ac46f8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -176,6 +185,17 @@
                     "action": "Orbit",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "4c680bed-5d0d-4d3b-8540-a79d7e1c6255",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OrbitFinished",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

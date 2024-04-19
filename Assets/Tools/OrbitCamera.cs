@@ -37,7 +37,7 @@ namespace MickolPaige.Lab3
                 Cursor.lockState = CursorLockMode.Locked;
 
                 Camera cam = GetComponent<Camera>();
-                Vector2 delta = new(context.ReadValue<Vector2>().y, context.ReadValue<Vector2>().x);
+                Vector2 delta = new(-context.ReadValue<Vector2>().y, context.ReadValue<Vector2>().x);
 
                 delta = Sensitivity * Vector2.Scale(delta, new Vector2(1f / cam.pixelHeight, 1f / cam.pixelWidth));
                 AddRotationDelta(360 * delta);
@@ -49,8 +49,6 @@ namespace MickolPaige.Lab3
             };
 
             inputs.Camera.Enable();
-
-            //
         }
 
         void AddRotationDelta(Vector3 delta)

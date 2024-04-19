@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MickolPaige
 {
     public class TestSphere : MonoBehaviour
     {
         Texture2D NormalMap;
-        const int TEXTURE_SIZE = 128;
+        const int TEXTURE_SIZE = 2000;
         const float CIRCLE_DIAMETER_SCALE = 0.9f;
         const int CIRCLE_RADIUS = (int)((TEXTURE_SIZE / 2) * 0.9f);
+
+        [SerializeField]
+        Image DrawTo;
 
         private void Awake()
         {
@@ -20,7 +24,7 @@ namespace MickolPaige
         // Start is called before the first frame update
         void Start()
         {
-            StartCoroutine(CircleMap());
+            CircleMap();
         }
 
         bool IsInCircle(int x, int y)
@@ -37,7 +41,7 @@ namespace MickolPaige
             return centered * 2;
         }
 
-        IEnumerator CircleMap()
+        void CircleMap()
         {
             Color straightForward = NormalMapColorUtils.VectorAsColor(new Vector3(0, 0, 1f));
 
@@ -48,8 +52,6 @@ namespace MickolPaige
                     if (!IsInCircle(x,y))
                     {
                         NormalMap.SetPixel(x, y, straightForward);
-                        NormalMap.Apply();
-                        yield return new WaitForSeconds(0.001f);
                         continue;
                     }
 
@@ -58,10 +60,10 @@ namespace MickolPaige
 
                     NormalMap.SetPixel(x, y, NormalMapColorUtils.VectorAsColor(vecAtPixel));
 
-                    NormalMap.Apply();
-                    yield return new WaitForSeconds(0.001f);
                 }
             }
+
+            NormalMap.Apply();
         }
 
         void UpdateMaterial()
@@ -69,6 +71,8 @@ namespace MickolPaige
             Material mat = GetComponent<Renderer>().material;
             mat.EnableKeyword("_NORMALMAP");
             mat.SetTexture("_BumpMap", NormalMap);
+
+            DrawTo.sprite = Sprite.Create(NormalMap, new Rect(0, 0, TEXTURE_SIZE, TEXTURE_SIZE), Vector2.zero);
         }
     }
 }

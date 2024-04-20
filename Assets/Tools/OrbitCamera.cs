@@ -32,6 +32,7 @@ namespace MickolPaige.Lab3
 
             UserInput inputs = new();
 
+            // TODO unbind this
             inputs.Camera.Orbit.performed += (InputAction.CallbackContext context) =>
             {
                 Cursor.lockState = CursorLockMode.Locked;

@@ -18,6 +18,7 @@ namespace MickolPaige
 
             UserInput input = new();
 
+            // TODO unbind this
             input.Lighting.DragLight.performed += (CallbackContext c) =>
             {
                 SnapToLayerFromScreen(c.ReadValue<Vector2>(), 1 << _snappingLayer);

@@ -11,20 +11,23 @@ namespace MickolPaige
             return tri2d.area / tri3d.area;
         }
 
-        public static void DrawCircle(Texture2D normalMap, Vector2 center, float radius, Color fill)
+        public static void DrawCircle(Painting normalMap, Vector2 center, float radius)
         {
-            for (int x = (int)(center.x - radius); x <= center.x + radius; x++)
+            normalMap.ForEachTexel((x, y) =>
             {
-                for (int y = (int)(center.y - radius); y <= center.y + radius; y++)
+                if ((new Vector2(x, y) - center).magnitude <= radius)
                 {
-                    if ((new Vector2(x, y) - center).magnitude <= radius)
-                    {
-                        normalMap.SetPixel(x, y, fill);
-                    }
+                    return new Vector3(1,0,0);
                 }
-            }
 
-            normalMap.Apply();
+                return null;
+            });
+        }
+
+        public static Vector2 NormalizeCoordinates(Vector2 coords)
+        {
+            Vector2 positive = coords + new Vector2(999, 999);
+            return new Vector2(positive.x % 1, positive.y % 1);
         }
     }
 }

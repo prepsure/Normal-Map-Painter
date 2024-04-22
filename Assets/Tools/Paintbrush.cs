@@ -38,14 +38,15 @@ namespace MickolPaige
 
         void Paint(Vector2 screenPoint, int layerMask)
         {
-            bool didHit = Physics.Raycast(Camera.main.ScreenPointToRay(screenPoint), out RaycastHit hit, 999, _paintingLayer);
+            bool didHit = Physics.Raycast(Camera.main.ScreenPointToRay(screenPoint), out RaycastHit hit, 999, layerMask);
 
             if (!didHit)
             {
                 return;
             }
 
-            UVUtils.DrawCircle(painting.NormalMap, hit.textureCoord, 10, NormalMapColorUtils.VectorAsColor(new Vector3(0, 0, 1)));
+            Debug.Log(hit.textureCoord);
+            UVUtils.DrawCircle(painting, Vector2.Scale(UVUtils.NormalizeCoordinates(hit.textureCoord), painting.Size), 100);
         }
     }
 }

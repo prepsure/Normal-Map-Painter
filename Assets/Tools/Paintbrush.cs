@@ -10,6 +10,8 @@ namespace MickolPaige
 
     public class Paintbrush : MonoBehaviour
     {
+        float brushSize;
+
         int _paintingLayer;
 
         Painting painting;
@@ -30,6 +32,11 @@ namespace MickolPaige
             // TODO unbind this
             input.Paintbrush.Paint.performed += (CallbackContext c) =>
             {
+                if (ModeSwitching.CurrentMode != Mode.PaintBrush)
+                {
+                    return;
+                }
+
                 Paint(c.ReadValue<Vector2>(), 1 << _paintingLayer);
             };
 

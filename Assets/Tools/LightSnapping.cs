@@ -21,6 +21,11 @@ namespace MickolPaige
             // TODO unbind this
             input.Lighting.DragLight.performed += (CallbackContext c) =>
             {
+                if (ModeSwitching.CurrentMode != Mode.Light)
+                {
+                    return;
+                }
+
                 SnapToLayerFromScreen(c.ReadValue<Vector2>(), 1 << _snappingLayer);
             };
 

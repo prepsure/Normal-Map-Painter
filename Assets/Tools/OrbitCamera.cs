@@ -18,7 +18,7 @@ namespace MickolPaige.Lab3
         float OrbitRadius = 7f;
 
         Vector3 DirectionFromObject = -Vector3.forward;
-        Vector3 CurrentOrbitRotation = Vector3.zero;
+        Vector3 CurrentOrbitRotation = new Vector3(45, -45, 0);
         const float Y_LIMIT = 80;
 
         //TODO clean up

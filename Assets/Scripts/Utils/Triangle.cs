@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace MickolPaige
 {
+    // represents a triangle in 3d (and by extension, 2d) space
     public class Triangle
     {
         public readonly Vector3 p1;
@@ -27,6 +28,7 @@ namespace MickolPaige
             return (p0 - p1).magnitude;
         }
 
+        // herron's formula to compute the area of a triangle
         float CalculateArea()
         {
             float a = LengthOfLine(p1, p2),

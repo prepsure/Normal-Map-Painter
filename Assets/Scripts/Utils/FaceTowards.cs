@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace MickolPaige
 {
+    // Points an object towards another object
     public class FaceTowards : MonoBehaviour
     {
         public Transform ObjectToLookAt;

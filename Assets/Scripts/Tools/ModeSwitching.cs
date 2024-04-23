@@ -11,6 +11,7 @@ namespace MickolPaige
         Light, PaintBrush
     }
 
+    // Switches between painting and lighting modes on spacebar press
     public class ModeSwitching : MonoBehaviour
     {
         static int index = 0;

@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 namespace MickolPaige
 {
+    // A draws a sphere texture to an object's renderer.
+    // Used for testing drawing and vector to color functions.
     public class TestSphere : MonoBehaviour
     {
         Texture2D NormalMap;
         const int TEXTURE_SIZE = 2000;
         const float CIRCLE_DIAMETER_SCALE = 0.9f;
-        const int CIRCLE_RADIUS = (int)((TEXTURE_SIZE / 2) * 0.9f);
 
         [SerializeField]
         Image DrawTo;

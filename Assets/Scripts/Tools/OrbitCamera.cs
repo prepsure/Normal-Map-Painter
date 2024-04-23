@@ -3,43 +3,37 @@ using UnityEngine.InputSystem;
 
 namespace MickolPaige.Lab3
 {
+    // A camera that orbits 
     [RequireComponent(typeof(Camera))]
     public class OrbitCamera : MonoBehaviour
     {
         [SerializeField]
-        Transform FocusOn;
+        Transform FocusOn; // the object to look at
 
         [SerializeField]
-        float Sensitivity = 1;
+        float Sensitivity = 1; // sensitivity of the mouse
 
         [SerializeField]
-        float OrbitRadius = 7f;
+        float OrbitRadius = 7f; // radius to orbit from
 
-        Vector3 DirectionFromObject = -Vector3.forward;
-        Vector3 CurrentOrbitRotation = new Vector3(45, -45, 0);
-        const float Y_LIMIT = 80;
+        Vector3 DirectionFromObject = -Vector3.forward; // direction to offset the camera
+        Vector3 CurrentOrbitRotation = new Vector3(45, -45, 0); // current rotation of the camera in euler angles
+        const float Y_LIMIT = 80; // angle limit for the camera going above/below the object
 
-        //TODO clean up
-        GameObject emptyGO;
-
-        // Start is called before the first frame update
-        void OnEnable()
+        void Awake()
         {
-            // TODO clean up
-            emptyGO = new GameObject();
-
             UserInput inputs = new();
 
-            // TODO unbind this
             inputs.Camera.Orbit.performed += (InputAction.CallbackContext context) =>
             {
                 Cursor.lockState = CursorLockMode.Locked;
 
                 Camera cam = GetComponent<Camera>();
-                Vector2 delta = new(-context.ReadValue<Vector2>().y, context.ReadValue<Vector2>().x);
 
-                delta = Sensitivity * Vector2.Scale(delta, new Vector2(1f / cam.pixelHeight, 1f / cam.pixelWidth));
-                AddRotationDelta(360 * delta);
+                // normalize sensitivity for different screen sizes
+                Vector2 delta = new(-context.ReadValue<Vector2>().y / cam.pixelHeight, context.ReadValue<Vector2>().x / cam.pixelWidth);
+
+                AddRotationDelta(360 * Sensitivity * delta);
             };
 
             inputs.Camera.OrbitFinished.canceled += (InputAction.CallbackContext context) =>
@@ -62,28 +56,11 @@ namespace MickolPaige.Lab3
             );
         }
 
-        public Vector3 Focus()
-        {
-            return FocusOn.position;
-        }
-
-        public Transform GetNextCameraTransform()
-        {
-            // TODO clean this up so we get the transform from somewhere externally
-            Transform newTransform = emptyGO.transform;
-
-            newTransform.position = Focus() + Quaternion.Euler(CurrentOrbitRotation) * DirectionFromObject * OrbitRadius;
-
-            newTransform.LookAt(Focus(), Vector3.up);
-
-            return newTransform;
-        }
-
         // Update is called once per frame
         void LateUpdate()
         {
-            Transform nextTransform = GetNextCameraTransform();
-            transform.SetPositionAndRotation(nextTransform.position, nextTransform.rotation);
+            transform.position = FocusOn.position + Quaternion.Euler(CurrentOrbitRotation) * DirectionFromObject * OrbitRadius;
+            transform.LookAt(FocusOn.position, Vector3.up);
         }
     }
 }

@@ -115,6 +115,42 @@ namespace MickolPaige
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SwitchToCircle"",
+                    ""type"": ""Button"",
+                    ""id"": ""17bfe6d3-198d-4619-87cb-b296d980a995"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchToSquare"",
+                    ""type"": ""Button"",
+                    ""id"": ""235498d9-7fd4-4cca-95a0-11947fc7dac3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchToBump"",
+                    ""type"": ""Button"",
+                    ""id"": ""9991a3a9-a26d-4859-be78-04388c083dd7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchToFlat"",
+                    ""type"": ""Button"",
+                    ""id"": ""c2a7ba92-1cb2-47f3-bdd9-394858874006"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -150,6 +186,50 @@ namespace MickolPaige
                     ""action"": ""Paint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11df5ed1-0b34-4bfd-b8da-04bfa4babe07"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchToSquare"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""22479383-bfcc-4287-9bac-3212528166e2"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchToCircle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1eb72c42-afcd-4be5-9569-b8feb476d14a"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchToFlat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""19991ef0-98e6-4813-bc9a-0b58f442d05e"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchToBump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -235,6 +315,10 @@ namespace MickolPaige
             // Paintbrush
             m_Paintbrush = asset.FindActionMap("Paintbrush", throwIfNotFound: true);
             m_Paintbrush_Paint = m_Paintbrush.FindAction("Paint", throwIfNotFound: true);
+            m_Paintbrush_SwitchToCircle = m_Paintbrush.FindAction("SwitchToCircle", throwIfNotFound: true);
+            m_Paintbrush_SwitchToSquare = m_Paintbrush.FindAction("SwitchToSquare", throwIfNotFound: true);
+            m_Paintbrush_SwitchToBump = m_Paintbrush.FindAction("SwitchToBump", throwIfNotFound: true);
+            m_Paintbrush_SwitchToFlat = m_Paintbrush.FindAction("SwitchToFlat", throwIfNotFound: true);
             // Camera
             m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
             m_Camera_Orbit = m_Camera.FindAction("Orbit", throwIfNotFound: true);
@@ -393,11 +477,19 @@ namespace MickolPaige
         private readonly InputActionMap m_Paintbrush;
         private List<IPaintbrushActions> m_PaintbrushActionsCallbackInterfaces = new List<IPaintbrushActions>();
         private readonly InputAction m_Paintbrush_Paint;
+        private readonly InputAction m_Paintbrush_SwitchToCircle;
+        private readonly InputAction m_Paintbrush_SwitchToSquare;
+        private readonly InputAction m_Paintbrush_SwitchToBump;
+        private readonly InputAction m_Paintbrush_SwitchToFlat;
         public struct PaintbrushActions
         {
             private @UserInput m_Wrapper;
             public PaintbrushActions(@UserInput wrapper) { m_Wrapper = wrapper; }
             public InputAction @Paint => m_Wrapper.m_Paintbrush_Paint;
+            public InputAction @SwitchToCircle => m_Wrapper.m_Paintbrush_SwitchToCircle;
+            public InputAction @SwitchToSquare => m_Wrapper.m_Paintbrush_SwitchToSquare;
+            public InputAction @SwitchToBump => m_Wrapper.m_Paintbrush_SwitchToBump;
+            public InputAction @SwitchToFlat => m_Wrapper.m_Paintbrush_SwitchToFlat;
             public InputActionMap Get() { return m_Wrapper.m_Paintbrush; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -410,6 +502,18 @@ namespace MickolPaige
                 @Paint.started += instance.OnPaint;
                 @Paint.performed += instance.OnPaint;
                 @Paint.canceled += instance.OnPaint;
+                @SwitchToCircle.started += instance.OnSwitchToCircle;
+                @SwitchToCircle.performed += instance.OnSwitchToCircle;
+                @SwitchToCircle.canceled += instance.OnSwitchToCircle;
+                @SwitchToSquare.started += instance.OnSwitchToSquare;
+                @SwitchToSquare.performed += instance.OnSwitchToSquare;
+                @SwitchToSquare.canceled += instance.OnSwitchToSquare;
+                @SwitchToBump.started += instance.OnSwitchToBump;
+                @SwitchToBump.performed += instance.OnSwitchToBump;
+                @SwitchToBump.canceled += instance.OnSwitchToBump;
+                @SwitchToFlat.started += instance.OnSwitchToFlat;
+                @SwitchToFlat.performed += instance.OnSwitchToFlat;
+                @SwitchToFlat.canceled += instance.OnSwitchToFlat;
             }
 
             private void UnregisterCallbacks(IPaintbrushActions instance)
@@ -417,6 +521,18 @@ namespace MickolPaige
                 @Paint.started -= instance.OnPaint;
                 @Paint.performed -= instance.OnPaint;
                 @Paint.canceled -= instance.OnPaint;
+                @SwitchToCircle.started -= instance.OnSwitchToCircle;
+                @SwitchToCircle.performed -= instance.OnSwitchToCircle;
+                @SwitchToCircle.canceled -= instance.OnSwitchToCircle;
+                @SwitchToSquare.started -= instance.OnSwitchToSquare;
+                @SwitchToSquare.performed -= instance.OnSwitchToSquare;
+                @SwitchToSquare.canceled -= instance.OnSwitchToSquare;
+                @SwitchToBump.started -= instance.OnSwitchToBump;
+                @SwitchToBump.performed -= instance.OnSwitchToBump;
+                @SwitchToBump.canceled -= instance.OnSwitchToBump;
+                @SwitchToFlat.started -= instance.OnSwitchToFlat;
+                @SwitchToFlat.performed -= instance.OnSwitchToFlat;
+                @SwitchToFlat.canceled -= instance.OnSwitchToFlat;
             }
 
             public void RemoveCallbacks(IPaintbrushActions instance)
@@ -499,6 +615,10 @@ namespace MickolPaige
         public interface IPaintbrushActions
         {
             void OnPaint(InputAction.CallbackContext context);
+            void OnSwitchToCircle(InputAction.CallbackContext context);
+            void OnSwitchToSquare(InputAction.CallbackContext context);
+            void OnSwitchToBump(InputAction.CallbackContext context);
+            void OnSwitchToFlat(InputAction.CallbackContext context);
         }
         public interface ICameraActions
         {

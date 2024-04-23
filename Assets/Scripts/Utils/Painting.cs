@@ -6,20 +6,21 @@ using UnityEngine.UI;
 
 namespace MickolPaige
 {
+    // Represents a UV map that will replicate to other places.
     public class Painting
     {
-        public readonly Texture2D NormalMap;
-        readonly Renderer DrawToMesh;
-        readonly Image DrawToImage;
+        public readonly Texture2D NormalMap; // the normal map we're editing
+        readonly Renderer DrawToMesh; // the mesh to texture
+        readonly Image DrawToImage; // the image to reflect the uv to
 
-        public readonly Vector2 Size;
+        public readonly Vector2 Size; // the pixel size of the normal map
 
         public Painting(Vector2 size, Renderer drawToMesh, Image drawToImage)
         {
             NormalMap = new Texture2D((int)size.x, (int)size.y);
             ForEachTexel((int x, int y) =>
             {
-                return new Vector3(0, 0, 1);
+                return Vector3.forward;
             });
 
             DrawToMesh = drawToMesh;
@@ -29,6 +30,7 @@ namespace MickolPaige
             UpdateMaterial();
         }
 
+        // does an operation on each texel in the uv map
         public void ForEachTexel(Func<int, int, Vector3?> a)
         {
             for (int x = 0; x < NormalMap.width; x++) {
@@ -47,6 +49,7 @@ namespace MickolPaige
             NormalMap.Apply();
         }
 
+        // updates the applied object's material to reflect the uv map
         void UpdateMaterial()
         {
             Material mat = DrawToMesh.material;

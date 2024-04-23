@@ -32,7 +32,7 @@ namespace MickolPaige
             input.Enable();
         }
 
-
+        // snaps to the closest point on the light snapping sphere
         void SnapToLayerFromScreen(Vector2 screenPoint, int layerMask)
         {
             Physics.Raycast(Camera.main.ScreenPointToRay(screenPoint), out RaycastHit hit, _castingDistance, layerMask);

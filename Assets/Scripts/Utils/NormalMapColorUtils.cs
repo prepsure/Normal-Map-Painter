@@ -2,8 +2,10 @@ using UnityEngine;
 
 namespace MickolPaige
 {
+    // Utility functions for mapping vectors to colors
     public static class NormalMapColorUtils
     {
+        // gets the normal map color for a vector
         public static Color VectorAsColor(Vector3 v)
         {
             Vector3 n = (Vector3.Normalize(v) + Vector3.one) / 2;
@@ -14,7 +16,7 @@ namespace MickolPaige
         {
             Vector3 worldUp = Vector3.up;
 
-            // TODO
+            // TODO, if brushes want to use this
             return worldVector;
         }
 

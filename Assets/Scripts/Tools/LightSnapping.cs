@@ -11,6 +11,7 @@ namespace MickolPaige
         public SphereCollider SnapToSphere;
 
         int _snappingLayer;
+        float _castingDistance = 999;
 
         void Awake()
         {
@@ -18,7 +19,6 @@ namespace MickolPaige
 
             UserInput input = new();
 
-            // TODO unbind this
             input.Lighting.DragLight.performed += (CallbackContext c) =>
             {
                 if (ModeSwitching.CurrentMode != Mode.Light)
@@ -35,7 +35,7 @@ namespace MickolPaige
 
         void SnapToLayerFromScreen(Vector2 screenPoint, int layerMask)
         {
-            Physics.Raycast(Camera.main.ScreenPointToRay(screenPoint), out RaycastHit hit, 999, layerMask);
+            Physics.Raycast(Camera.main.ScreenPointToRay(screenPoint), out RaycastHit hit, _castingDistance, layerMask);
             transform.position = SnapToSphere.ClosestPoint(hit.point);
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +7,9 @@ using static UnityEngine.InputSystem.InputAction;
 
 namespace MickolPaige
 {
-    
-
     public class Paintbrush : MonoBehaviour
     {
-        float brushSize;
+        float BrushSize = 80;
 
         int _paintingLayer;
 
@@ -21,6 +20,9 @@ namespace MickolPaige
 
         [SerializeField]
         Image drawToImage;
+
+        Func<Vector2, float, Vector2, Vector3, bool> BrushShape = BrushShapes.Square;
+        Func<Vector2, float, Vector2, Vector3, Vector3, Vector3> BrushBehavior = BrushBehaviors.FaceCamera;
 
         private void Awake()
         {
@@ -52,8 +54,17 @@ namespace MickolPaige
                 return;
             }
 
-            Debug.Log(hit.textureCoord);
-            UVUtils.DrawCircle(painting, Vector2.Scale(UVUtils.NormalizeCoordinates(hit.textureCoord), painting.Size), 100);
+            Vector2 texelHit = Vector2.Scale(UVUtils.NormalizeCoordinates(hit.textureCoord), painting.Size);
+
+            painting.ForEachTexel((x, y) =>
+            {
+                if (BrushShape(new Vector2(x, y), BrushSize, texelHit, hit.point))
+                {
+                    return BrushBehavior(new Vector2(x, y), BrushSize, texelHit, hit.point, hit.normal);
+                }
+
+                return null;
+            });
         }
     }
 }
